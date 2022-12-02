@@ -1,0 +1,38 @@
+<resources>
+
+    <string name="app_name">My project</string>
+    <string name="movies_list">Movies list</string>
+
+    <string name="avengers_parental_guidance">13+</string>
+    <string name="tenet_parental_guidance">16+</string>
+    <string name="black_widow_parental_guidance">13+</string>
+    <string name="wonder_woman_parental_guidance">13+</string>
+
+    <string name="avengers_tag">Action, Adventure, Fantasy</string>
+    <string name="tenet_tag">Action, Sci-Fi, Thriller</string>
+    <string name="black_widow_tag">Action, Adventure, Sci-Fi</string>
+    <string name="wonder_woman_tag">Action, Adventure, Fantasy</string>
+
+    <string name="avengers_review">125 REVIEWS</string>
+    <string name="tenet_review">98 REVIEWS</string>
+    <string name="black_widow_review">138 REVIEWS</string>
+    <string name="wonder_woman_review">74 REVIEWS</string>
+
+    <string name="avengers_title">Avengers: End Game</string>
+    <string name="tenet_title">Tenet</string>
+    <string name="black_widow_title">Black Widow</string>
+    <string name="wonder_woman_title">Wonder Woman 1984</string>
+
+    <string name="tenet_duration">137 MIN</string>
+    <string name="avengers_duration">97 MIN</string>
+    <string name="black_widow_duration">102 MIN</string>
+    <string name="wonder_woman_duration">120 MIN</string>
+
+    --> actors -->
+
+    <string name="robert_downey_jr">Robert Downey Jr</string>
+    <string name="chris_evans">Chris Evans</string>
+    <string name="mark_ruffalo">Mark Ruffalo</string>
+    <string name="chris_hemsworth">Chris Hemsworth</string>
+
+</resources>
