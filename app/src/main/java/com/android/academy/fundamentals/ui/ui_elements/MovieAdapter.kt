@@ -1,4 +1,4 @@
-package com.android.academy.fundamentals
+package com.android.academy.fundamentals.ui.ui_elements
 
 import android.content.Context
 import android.util.Log
@@ -9,33 +9,22 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
-import com.android.academy.fundamentals.network.ImdbMovie
+import com.android.academy.fundamentals.R
+import com.android.academy.fundamentals.data.network.ImdbMovie
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 
 class MovieAdapter(
     private val onItemClickListener: OnItemClickListener,
     context: Context
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-//    private lateinit var movies: List<Movie>
-
-    private val scope = CoroutineScope(Dispatchers.IO)
     private val context = context
     private var movies: List<ImdbMovie> = listOf()
     fun setMovies(value: List<ImdbMovie>) {
         movies = value
         notifyDataSetChanged()
     }
-
-
-//    init {
-//        scope.launch {
-//            movies = movies ?: JsonMovieRepository(context).loadMovies()
-//        }
-//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view: View = LayoutInflater.from(parent.context)
@@ -86,13 +75,6 @@ class MovieAdapter(
                 if (false) R.drawable.parental_guidance_16 else R.drawable.parental_guidance_13
             )
             tag.text = movie.fullTitle
-//            tag.text = if (movie.genres.isEmpty()) "" else {
-//                var genresString = movie.genres[0].name
-//                for (i in 2 until movie.genres.size) {
-//                    genresString += ", ${movie.genres[i].name}"
-//                }
-//                genresString
-//            }
             reviews.text = "${movie.imDBRating} by ${movie.imDBRatingCount} votes"
             duration.text = "${movie.year}"
             starIcon1.setImageResource(if (movie.imDBRating.toDouble() > 0) R.drawable.star_icon else R.drawable.star_icon_gray)
@@ -108,7 +90,3 @@ class MovieAdapter(
     }
 
 }
-
-
-
-

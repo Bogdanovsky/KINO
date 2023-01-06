@@ -1,4 +1,4 @@
-package com.android.academy.fundamentals.network
+package com.android.academy.fundamentals.data.network
 
 import com.squareup.moshi.JsonClass
 import kotlinx.serialization.SerialName

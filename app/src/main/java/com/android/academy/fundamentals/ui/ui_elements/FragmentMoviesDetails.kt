@@ -1,4 +1,4 @@
-package com.android.academy.fundamentals
+package com.android.academy.fundamentals.ui.ui_elements
 
 import android.os.Bundle
 import android.util.Log
@@ -11,10 +11,11 @@ import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
-import com.android.academy.fundamentals.network.ImdbMovie
+import com.android.academy.fundamentals.R
+import com.android.academy.fundamentals.data.network.ImdbMovie
+import com.android.academy.fundamentals.ui.viewmodels.FragmentMoviesViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.coroutines.*
 
 class FragmentMoviesDetails() : Fragment() {
 

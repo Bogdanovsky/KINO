@@ -1,6 +1,5 @@
-package com.android.academy.fundamentals
+package com.android.academy.fundamentals.ui.viewmodels
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 

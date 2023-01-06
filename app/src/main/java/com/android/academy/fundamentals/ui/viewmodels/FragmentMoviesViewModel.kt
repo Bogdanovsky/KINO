@@ -1,16 +1,13 @@
-package com.android.academy.fundamentals
+package com.android.academy.fundamentals.ui.viewmodels
 
-import android.app.Application
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.academy.fundamentals.data.*
-import com.android.academy.fundamentals.data.JsonMovieRepository
-import com.android.academy.fundamentals.network.ImdbApi
-import com.android.academy.fundamentals.network.ImdbMovie
+//import com.android.academy.fundamentals.data.JsonMovieRepository
+import com.android.academy.fundamentals.data.network.ImdbApi
+import com.android.academy.fundamentals.data.network.ImdbMovie
 import kotlinx.coroutines.*
 
 class FragmentMoviesViewModel() : ViewModel() {
@@ -24,12 +21,6 @@ class FragmentMoviesViewModel() : ViewModel() {
     init {
         Log.i("TAG1", "init block in VM start")
         loadImdbTop250()
-    }
-
-    fun loadMovies() {
-//        _movies.value = MyApplication.instance.movies
-//        Log.i("APP INIT", "inside coroutine. ${_movies.value?.size}")
-//
     }
 
     private fun loadImdbTop250() {

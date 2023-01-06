@@ -1,4 +1,4 @@
-package com.android.academy.fundamentals.network
+package com.android.academy.fundamentals.data.network
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.squareup.moshi.Moshi
@@ -7,9 +7,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
-import retrofit2.Call
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import java.util.concurrent.TimeUnit
 

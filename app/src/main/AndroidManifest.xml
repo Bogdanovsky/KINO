@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".MyApplication"
         android:theme="@style/Theme.MyApplication"
         android:allowBackup="true"
         android:supportsRtl="true"
@@ -17,7 +16,7 @@
         android:label="@string/app_name"
         >
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".ui.ui_elements.MainActivity"
             android:exported="true">
 
             <intent-filter>

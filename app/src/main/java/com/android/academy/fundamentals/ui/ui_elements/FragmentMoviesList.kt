@@ -1,4 +1,4 @@
-package com.android.academy.fundamentals
+package com.android.academy.fundamentals.ui.ui_elements
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -6,11 +6,10 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.academy.fundamentals.network.ImdbMovie
-import kotlinx.coroutines.runBlocking
+import com.android.academy.fundamentals.R
+import com.android.academy.fundamentals.ui.viewmodels.FragmentMoviesViewModel
 
 class FragmentMoviesList : Fragment(), MovieAdapter.OnItemClickListener {
 
@@ -20,7 +19,6 @@ class FragmentMoviesList : Fragment(), MovieAdapter.OnItemClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-//        viewModel.loadMovies()
         return inflater.inflate(R.layout.fragment_movies_list, container, false)
     }
 
@@ -48,7 +46,6 @@ class FragmentMoviesList : Fragment(), MovieAdapter.OnItemClickListener {
     }
 
     override fun onItemClicked(movieId: String) {
-//        viewModel.setSelectedMovie(movieId)
         requireActivity().apply {
             Log.i("TAG2", "movieId = ${movieId}")
             supportFragmentManager.beginTransaction()

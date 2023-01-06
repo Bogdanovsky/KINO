@@ -1,12 +1,8 @@
-package com.android.academy.fundamentals
+package com.android.academy.fundamentals.ui.ui_elements
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.android.academy.fundamentals.data.JsonMovieRepository
-import com.android.academy.fundamentals.data.Movie
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.android.academy.fundamentals.R
 
 class MainActivity : AppCompatActivity() {
 
