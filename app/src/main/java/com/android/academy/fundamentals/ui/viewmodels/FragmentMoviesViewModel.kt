@@ -1,44 +1,41 @@
 package com.android.academy.fundamentals.ui.viewmodels
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-//import com.android.academy.fundamentals.data.JsonMovieRepository
-import com.android.academy.fundamentals.data.network.ImdbApi
-import com.android.academy.fundamentals.data.network.ImdbMovie
+import com.android.academy.fundamentals.data.database.getDatabase
+import com.android.academy.fundamentals.data.repository.MovieRepository
+import com.android.academy.fundamentals.domain.Movie
 import kotlinx.coroutines.*
 
-class FragmentMoviesViewModel() : ViewModel() {
+class FragmentMoviesViewModel(app: Application) : ViewModel() {
 
-    private val _movies: MutableLiveData<List<ImdbMovie>> = MutableLiveData(listOf())
-    val movies: LiveData<List<ImdbMovie>> = _movies
+    private val movieDatabase = getDatabase(app)
+    private val movieRepository = MovieRepository(movieDatabase)
 
-    private val _selectedMovie: MutableLiveData<ImdbMovie> = MutableLiveData()
-    val selectedMovie: LiveData<ImdbMovie> = _selectedMovie
+    val movies = movieRepository.movies
+
+    private val _selectedMovie: MutableLiveData<Movie> = MutableLiveData()
+    val selectedMovie: LiveData<Movie> = _selectedMovie
 
     init {
-        Log.i("TAG1", "init block in VM start")
-        loadImdbTop250()
-    }
-
-    private fun loadImdbTop250() {
         viewModelScope.launch {
             try {
-                Log.i("API", ImdbApi.retrofitService.getTop250Movies().toString())
-                _movies.value = ImdbApi.retrofitService.getTop250Movies().items
+                movieRepository.refreshMovies()
             } catch (e: Exception) {
-                Log.i("API", "ERRORRRRRR!!!!")
+                Log.i("REPO", "Exception at refreshMovies()")
                 e.printStackTrace()
             }
         }
     }
 
     fun setSelectedMovie(movieId: String) {
-        _selectedMovie.value = movies.value!!.find { it.id == movieId }
+        Log.i("FrMoVeMo", "setSelectedMovie ${movieId}")
+        Log.i("FrMoVeMo", "setSelectedMovie ${movieRepository.movies.value}")
+        _selectedMovie.value = movieRepository.movies.value!!.find { it.id == movieId }
+        Log.i("FrMoVeMo", "setSelectedMovie ${_selectedMovie.value.toString()}")
     }
-
-
-
 }

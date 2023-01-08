@@ -10,19 +10,26 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.android.academy.fundamentals.R
 import com.android.academy.fundamentals.data.network.ImdbMovie
+import com.android.academy.fundamentals.domain.Movie
 import com.android.academy.fundamentals.ui.viewmodels.FragmentMoviesViewModel
+import com.android.academy.fundamentals.ui.viewmodels.FragmentMoviesViewModelFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 class FragmentMoviesDetails() : Fragment() {
 
 
-    private val viewModel: FragmentMoviesViewModel by activityViewModels()
+    private val viewModel: FragmentMoviesViewModel by lazy {
+        val activity = requireNotNull(this.activity){}
+        ViewModelProvider(this, FragmentMoviesViewModelFactory(activity.application))
+            .get(FragmentMoviesViewModel::class.java)
+    }
     private lateinit var adapter: ActorAdapter
-    private lateinit var movie: ImdbMovie
+    private lateinit var movie: Movie
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,10 +49,6 @@ class FragmentMoviesDetails() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//            viewModel.loadImdbTop250()
-//            viewModel.selectedMovie.observe(viewLifecycleOwner) {
-//                movie = it
-//            }
         movie = viewModel.selectedMovie.value!!
         val actorsRecyclerView =
             view.findViewById<RecyclerView>(R.id.fragment_movies_details_recyclerview)
@@ -57,14 +60,11 @@ class FragmentMoviesDetails() : Fragment() {
         val image = view.findViewById<ImageView>(R.id.detailsImageView)
         Glide.with(image.context)
             .load(movie.image.toUri().buildUpon().scheme("https").build())
-//            .load("https://i.imgur.com/DvpvklR.png")
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.orig)
                     .error(R.drawable.orig)
             )
-//            .fitCenter()
-//            .centerInside()
             .centerCrop()
             .into(image)
         // Parental Guidance
@@ -107,7 +107,7 @@ class FragmentMoviesDetails() : Fragment() {
             FragmentMoviesDetails().apply {
                 arguments = Bundle().apply {
                     putString(MOVIE_ID, movieId)
-                    Log.i("TAG1", "movie.id = $movieId")
+//                    Log.i("TAG1", "movie.id = $movieId")
 //                    putString(ARG_PARAM2, param2)
                 }
             }

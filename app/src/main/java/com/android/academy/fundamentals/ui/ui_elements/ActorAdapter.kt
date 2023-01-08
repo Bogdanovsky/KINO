@@ -9,13 +9,11 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.android.academy.fundamentals.R
 import com.android.academy.fundamentals.data.network.ImdbActor
-//import com.android.academy.fundamentals.data.JsonMovieRepository
-//import com.android.academy.fundamentals.data.Movie
-import com.android.academy.fundamentals.data.network.ImdbMovie
+import com.android.academy.fundamentals.domain.Movie
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-class ActorAdapter(movie: ImdbMovie) : RecyclerView.Adapter<ActorAdapter.ActorViewHolder>() {
+class ActorAdapter(movie: Movie) : RecyclerView.Adapter<ActorAdapter.ActorViewHolder>() {
 
     private val actors = listOf<ImdbActor>(
         ImdbActor(1, "Mark Ruffalo", "https://i.imgur.com/DvpvklR.png"),

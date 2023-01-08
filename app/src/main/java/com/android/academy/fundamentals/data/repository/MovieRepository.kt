@@ -1,4 +1,32 @@
 package com.android.academy.fundamentals.data.repository
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import com.android.academy.fundamentals.data.database.MovieDatabase
+import com.android.academy.fundamentals.data.database.toMovieList
+import com.android.academy.fundamentals.data.network.ImdbApi
+import com.android.academy.fundamentals.data.network.toDatabaseMovieList
+import com.android.academy.fundamentals.domain.Movie
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
+
+class MovieRepository(private val movieDatabase: MovieDatabase) {
+    val movies: LiveData<List<Movie>> = Transformations.map(movieDatabase.mdbDao.getMovies()) {
+        it.toMovieList()
+    }
+
+    suspend fun refreshMovies() {
+        withContext(Dispatchers.IO) {
+            val imdbMoviesList = ImdbApi.retrofitService.getTop250Movies().items
+            movieDatabase.mdbDao.insertAll(imdbMoviesList.toDatabaseMovieList())
+        }
+    }
+}
+
+
+
+
 //
 //import android.content.Context
 //import android.util.Log

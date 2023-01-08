@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.android.academy.fundamentals.R
-import com.android.academy.fundamentals.data.network.ImdbMovie
+import com.android.academy.fundamentals.domain.Movie
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
@@ -20,8 +20,8 @@ class MovieAdapter(
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private val context = context
-    private var movies: List<ImdbMovie> = listOf()
-    fun setMovies(value: List<ImdbMovie>) {
+    private var movies: List<Movie> = listOf()
+    fun setMovies(value: List<Movie>) {
         movies = value
         notifyDataSetChanged()
     }
@@ -38,7 +38,6 @@ class MovieAdapter(
     }
 
     override fun getItemCount(): Int {
-        Log.i("TAG", "TAG #1_ movies.size = ${movies.size}")
         return movies.size
     }
 
@@ -61,7 +60,7 @@ class MovieAdapter(
         private val starIcon5: ImageView = itemView.findViewById(R.id.starIcon5_iv)
 
 
-        fun onBind(movie: ImdbMovie, context: Context) {
+        fun onBind(movie: Movie, context: Context) {
             title.text = movie.title
             Glide.with(context)
                 .load(movie.image.toUri().buildUpon().scheme("https").build())
@@ -70,7 +69,6 @@ class MovieAdapter(
                     .placeholder(R.drawable.avengers_poster)
                     .error(R.drawable.black_widow_poster))
                 .into(poster)
-            Log.i("TAG", movie.image)
             parentalGuidance.setImageResource(
                 if (false) R.drawable.parental_guidance_16 else R.drawable.parental_guidance_13
             )
@@ -88,5 +86,4 @@ class MovieAdapter(
             }
         }
     }
-
 }
