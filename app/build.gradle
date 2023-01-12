@@ -9,7 +9,7 @@ android {
   compileSdkVersion 33
 
     defaultConfig {
-    applicationId "com.android.fundamentals"
+    applicationId "com.bogdanovsky.android.kino"
     minSdkVersion 21
     targetSdkVersion 33
     versionCode 1

@@ -1,7 +1,6 @@
-package com.android.academy.fundamentals.ui.ui_elements
+package com.bogdanovsky.android.kino.ui.ui_elements
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
-import com.android.academy.fundamentals.R
-import com.android.academy.fundamentals.domain.Movie
+import com.bogdanovsky.android.kino.R
+import com.bogdanovsky.android.kino.domain.Movie
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
@@ -49,10 +48,8 @@ class MovieAdapter(
 
         private val title: TextView = itemView.findViewById(R.id.movie_title_tv)
         private val poster: ImageView = itemView.findViewById(R.id.poster_iv)
-        private val parentalGuidance: ImageView = itemView.findViewById(R.id.parental_guidance_iv)
-        private val tag: TextView = itemView.findViewById(R.id.tag_tv)
         private val reviews: TextView = itemView.findViewById(R.id.reviews_tv)
-        private val duration: TextView = itemView.findViewById(R.id.duration_tv)
+        private val duration: TextView = itemView.findViewById(R.id.year)
         private val starIcon1: ImageView = itemView.findViewById(R.id.starIcon_iv)
         private val starIcon2: ImageView = itemView.findViewById(R.id.starIcon2_iv)
         private val starIcon3: ImageView = itemView.findViewById(R.id.starIcon3_iv)
@@ -69,10 +66,6 @@ class MovieAdapter(
                     .placeholder(R.drawable.avengers_poster)
                     .error(R.drawable.black_widow_poster))
                 .into(poster)
-            parentalGuidance.setImageResource(
-                if (false) R.drawable.parental_guidance_16 else R.drawable.parental_guidance_13
-            )
-            tag.text = movie.fullTitle
             reviews.text = "${movie.imDBRating} by ${movie.imDBRatingCount} votes"
             duration.text = "${movie.year}"
             starIcon1.setImageResource(if (movie.imDBRating.toDouble() > 0) R.drawable.star_icon else R.drawable.star_icon_gray)

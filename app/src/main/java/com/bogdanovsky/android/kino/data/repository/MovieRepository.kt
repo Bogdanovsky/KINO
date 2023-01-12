@@ -1,19 +1,32 @@
-package com.android.academy.fundamentals.data.repository
+package com.bogdanovsky.android.kino.data.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.android.academy.fundamentals.data.database.MovieDatabase
-import com.android.academy.fundamentals.data.database.toMovieList
-import com.android.academy.fundamentals.data.network.ImdbApi
-import com.android.academy.fundamentals.data.network.toDatabaseMovieList
-import com.android.academy.fundamentals.domain.Movie
+import com.bogdanovsky.android.kino.data.database.MovieDatabase
+import com.bogdanovsky.android.kino.data.database.toMovie
+import com.bogdanovsky.android.kino.data.database.toMovieList
+import com.bogdanovsky.android.kino.data.network.ImdbApi
+import com.bogdanovsky.android.kino.data.network.toActorList
+import com.bogdanovsky.android.kino.data.network.toDatabaseMovieList
+import com.bogdanovsky.android.kino.domain.Actor
+import com.bogdanovsky.android.kino.domain.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.awaitResponse
 
 
 class MovieRepository(private val movieDatabase: MovieDatabase) {
     val movies: LiveData<List<Movie>> = Transformations.map(movieDatabase.mdbDao.getMovies()) {
         it.toMovieList()
+    }
+
+    fun getMovieById(id: String): Movie {
+//        Log.i("FrMoVeMo", "getMovieById. movieDatabase = $movieDatabase")
+//        Log.i("FrMoVeMo", "getMovieById. mdbDao = ${movieDatabase.mdbDao}")
+//        Log.i("FrMoVeMo", "getMovieById. getById(id) = ${movieDatabase.mdbDao.getMovieById(id)}")
+//        return movieDatabase.mdbDao.getMovieById(id).toMovie()
+        return movies.value?.find { it.id == id } ?: throw Exception("can't get movie by id from MovieRepository")
     }
 
     suspend fun refreshMovies() {
@@ -22,10 +35,14 @@ class MovieRepository(private val movieDatabase: MovieDatabase) {
             movieDatabase.mdbDao.insertAll(imdbMoviesList.toDatabaseMovieList())
         }
     }
+
+    suspend fun getActorsByMovieId(movieId: String) : List<Actor> {
+        return withContext(Dispatchers.IO) {
+            ImdbApi.retrofitService.getFullCast(movieId).actors.toActorList()
+               // .awaitResponse().body()?.actors?.toActorList()
+        }
+    }
 }
-
-
-
 
 //
 //import android.content.Context

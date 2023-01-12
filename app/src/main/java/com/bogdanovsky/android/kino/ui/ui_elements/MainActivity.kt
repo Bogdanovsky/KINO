@@ -1,8 +1,8 @@
-package com.android.academy.fundamentals.ui.ui_elements
+package com.bogdanovsky.android.kino.ui.ui_elements
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.android.academy.fundamentals.R
+import com.bogdanovsky.android.kino.R
 
 class MainActivity : AppCompatActivity() {
 

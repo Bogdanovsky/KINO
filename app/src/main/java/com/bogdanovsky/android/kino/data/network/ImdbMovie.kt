@@ -1,7 +1,6 @@
-package com.android.academy.fundamentals.data.network
+package com.bogdanovsky.android.kino.data.network
 
-import com.android.academy.fundamentals.data.database.DatabaseMovie
-import com.android.academy.fundamentals.domain.Movie
+import com.bogdanovsky.android.kino.data.database.DatabaseMovie
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

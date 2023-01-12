@@ -1,4 +1,4 @@
-package com.android.academy.fundamentals.ui.ui_elements
+package com.bogdanovsky.android.kino.ui.ui_elements
 
 import android.os.Bundle
 import android.util.Log
@@ -9,14 +9,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.android.academy.fundamentals.R
-import com.android.academy.fundamentals.data.network.ImdbMovie
-import com.android.academy.fundamentals.domain.Movie
-import com.android.academy.fundamentals.ui.viewmodels.FragmentMoviesViewModel
-import com.android.academy.fundamentals.ui.viewmodels.FragmentMoviesViewModelFactory
+import com.bogdanovsky.android.kino.R
+import com.bogdanovsky.android.kino.domain.Movie
+import com.bogdanovsky.android.kino.ui.viewmodels.FragmentMoviesViewModel
+import com.bogdanovsky.android.kino.ui.viewmodels.FragmentMoviesViewModelFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
@@ -24,8 +22,9 @@ class FragmentMoviesDetails() : Fragment() {
 
 
     private val viewModel: FragmentMoviesViewModel by lazy {
+        Log.i("FrMoVeMo", "DetailsFragment by lazy")
         val activity = requireNotNull(this.activity){}
-        ViewModelProvider(this, FragmentMoviesViewModelFactory(activity.application))
+        ViewModelProvider(activity, FragmentMoviesViewModelFactory(activity.application))
             .get(FragmentMoviesViewModel::class.java)
     }
     private lateinit var adapter: ActorAdapter
@@ -41,19 +40,21 @@ class FragmentMoviesDetails() : Fragment() {
                 .remove(this)
                 .commit()
         }
-        val movieId = requireArguments().getString(MOVIE_ID) // TAG
-        viewModel.setSelectedMovie(movieId!!) // TAG
+//        val movieId = requireArguments().getString(MOVIE_ID) // TAG
+//        viewModel.setSelectedMovie(movieId!!) // TAG
+        Log.i("FrMoVeMo", "DetailsFragment onCreateView $viewModel")
         return layout
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        movie = requireNotNull(viewModel.selectedMovie.value)
 
-        movie = viewModel.selectedMovie.value!!
         val actorsRecyclerView =
             view.findViewById<RecyclerView>(R.id.fragment_movies_details_recyclerview)
         adapter = ActorAdapter(movie)
         actorsRecyclerView.adapter = adapter
+
         // Title
         view.findViewById<TextView>(R.id.detailsTitle).text = movie.title
         // Image
@@ -67,22 +68,12 @@ class FragmentMoviesDetails() : Fragment() {
             )
             .centerCrop()
             .into(image)
-        // Parental Guidance
-        view.findViewById<TextView>(R.id.detailsParentalGuidanceImageView)
-            .text = "${16}+"
-        // Genres
+        // Full title
         view.findViewById<TextView>(R.id.tagTextView).text = movie.fullTitle
-//        view.findViewById<TextView>(R.id.tagTextView).text = if (movie.genres.isEmpty()) "" else {
-//            var genresString = movie.genres[0].name
-//            for (i in 2 until movie.genres.size) {
-//                genresString += ", ${movie.genres[i].name}"
-//            }
-//            genresString
-//        }
         //Reviews
         view.findViewById<TextView>(R.id.reviewsTextView).text = "${movie.imDBRating} by ${movie.imDBRatingCount} votes"
-        // Storyline
-        view.findViewById<TextView>(R.id.storyline).text = movie.crew
+        // Crew
+        view.findViewById<TextView>(R.id.crew).text = movie.crew
         // Stars
         view.findViewById<ImageView>(R.id.starIconImageView)
             .setImageResource(if (movie.imDBRating.toDouble() > 0) R.drawable.star_icon else R.drawable.star_icon_gray)
@@ -107,11 +98,10 @@ class FragmentMoviesDetails() : Fragment() {
             FragmentMoviesDetails().apply {
                 arguments = Bundle().apply {
                     putString(MOVIE_ID, movieId)
-//                    Log.i("TAG1", "movie.id = $movieId")
+                    Log.i("FrMoVeMo", "movie.id = $movieId")
 //                    putString(ARG_PARAM2, param2)
                 }
             }
-
         private const val MOVIE_ID = "MOVIE_ID"
     }
 }

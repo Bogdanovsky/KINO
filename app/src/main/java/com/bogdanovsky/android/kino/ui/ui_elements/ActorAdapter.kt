@@ -1,4 +1,4 @@
-package com.android.academy.fundamentals.ui.ui_elements
+package com.bogdanovsky.android.kino.ui.ui_elements
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,23 +7,24 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
-import com.android.academy.fundamentals.R
-import com.android.academy.fundamentals.data.network.ImdbActor
-import com.android.academy.fundamentals.domain.Movie
+import com.bogdanovsky.android.kino.R
+import com.bogdanovsky.android.kino.data.database.MovieDatabase
+import com.bogdanovsky.android.kino.data.database.getDatabase
+import com.bogdanovsky.android.kino.data.network.ImdbApi
+import com.bogdanovsky.android.kino.data.network.ImdbApiService
+import com.bogdanovsky.android.kino.data.network.toActorList
+import com.bogdanovsky.android.kino.data.repository.MovieRepository
+import com.bogdanovsky.android.kino.domain.Actor
+import com.bogdanovsky.android.kino.domain.Movie
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import kotlinx.coroutines.runBlocking
 
 class ActorAdapter(movie: Movie) : RecyclerView.Adapter<ActorAdapter.ActorViewHolder>() {
 
-    private val actors = listOf<ImdbActor>(
-        ImdbActor(1, "Mark Ruffalo", "https://i.imgur.com/DvpvklR.png"),
-        ImdbActor(1, "Johny Depp", "https://i.imgur.com/DvpvklR.png"),
-        ImdbActor(1, "Bred Pitt", "https://i.imgur.com/DvpvklR.png"),
-        ImdbActor(1, "Jim Carrey", "https://i.imgur.com/DvpvklR.png"),
-        ImdbActor(1, "Leonardo DiCaprio", "https://i.imgur.com/DvpvklR.png"),
-        ImdbActor(1, "John Travolta", "https://i.imgur.com/DvpvklR.png"),
-        ImdbActor(1, "Keanu Reeves", "https://i.imgur.com/DvpvklR.png")
-    )
+    private val actors: List<Actor> = runBlocking {
+        ImdbApi.retrofitService.getFullCast(movie.id).actors.toActorList()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -44,7 +45,7 @@ class ActorAdapter(movie: Movie) : RecyclerView.Adapter<ActorAdapter.ActorViewHo
         private val name: TextView = itemView.findViewById(R.id.view_holder_actor_tv)
         private val image: ImageView = itemView.findViewById(R.id.view_holder_actor_iv)
 
-        fun onBind(actor: ImdbActor) {
+        fun onBind(actor: Actor) {
             name.text = actor.name
             Glide.with(image.context)
                 .load(actor.imageUrl.toUri().buildUpon().scheme("https").build())

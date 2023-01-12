@@ -1,4 +1,4 @@
-package com.android.academy.fundamentals.ui.viewmodels
+package com.bogdanovsky.android.kino.ui.viewmodels
 
 import android.app.Application
 import android.util.Log
@@ -6,9 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.academy.fundamentals.data.database.getDatabase
-import com.android.academy.fundamentals.data.repository.MovieRepository
-import com.android.academy.fundamentals.domain.Movie
+import com.bogdanovsky.android.kino.data.database.getDatabase
+import com.bogdanovsky.android.kino.data.repository.MovieRepository
+import com.bogdanovsky.android.kino.domain.Movie
 import kotlinx.coroutines.*
 
 class FragmentMoviesViewModel(app: Application) : ViewModel() {
@@ -25,6 +25,7 @@ class FragmentMoviesViewModel(app: Application) : ViewModel() {
         viewModelScope.launch {
             try {
                 movieRepository.refreshMovies()
+                Log.i("FrMoVeMo", "movieRepository refreshed")
             } catch (e: Exception) {
                 Log.i("REPO", "Exception at refreshMovies()")
                 e.printStackTrace()
@@ -33,9 +34,13 @@ class FragmentMoviesViewModel(app: Application) : ViewModel() {
     }
 
     fun setSelectedMovie(movieId: String) {
-        Log.i("FrMoVeMo", "setSelectedMovie ${movieId}")
-        Log.i("FrMoVeMo", "setSelectedMovie ${movieRepository.movies.value}")
-        _selectedMovie.value = movieRepository.movies.value!!.find { it.id == movieId }
-        Log.i("FrMoVeMo", "setSelectedMovie ${_selectedMovie.value.toString()}")
+//        viewModelScope.launch {
+            try {
+                _selectedMovie.value = movieRepository.getMovieById(movieId)
+            } catch (e: Exception) {
+                Log.i("FrMoVeMo", "Exception at setSelectedMovie()")
+                e.printStackTrace()
+            }
+//        }
     }
 }

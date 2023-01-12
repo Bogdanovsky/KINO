@@ -6,7 +6,8 @@
     android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#191926">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -59,19 +60,6 @@
                 android:text="Back"
                 android:textColor="#AAAAAA"
                 android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/detailsParentalGuidanceImageView"
-                android:layout_width="24dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="226dp"
-                android:text="@string/avengers_parental_guidance"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -169,13 +157,13 @@
                 app:layout_constraintTop_toBottomOf="@id/tagTextView" />
 
             <TextView
-                android:id="@+id/storyline_header"
+                android:id="@+id/crew_header"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_marginStart="@dimen/space_4x"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:text="Storyline"
+                android:text="Crew"
                 android:textColor="#ECECEC"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -184,19 +172,19 @@
                 app:layout_constraintTop_toBottomOf="@id/reviewsTextView" />
 
             <TextView
-                android:id="@+id/storyline"
+                android:id="@+id/crew"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_4x"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 android:alpha=".75"
-                android:text="After the devastating events of Avengers: Infinity War, the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe."
+                android:text="James Cameron, Al Pacino, Jeff Bridges, Tom Cruz"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toStartOf="@+id/background"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/storyline_header" />
+                app:layout_constraintTop_toBottomOf="@id/crew_header" />
 
             <TextView
                 android:id="@+id/cast"
@@ -210,7 +198,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/storyline" />
+                app:layout_constraintTop_toBottomOf="@id/crew" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fragment_movies_details_recyclerview"

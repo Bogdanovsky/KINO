@@ -1,11 +1,11 @@
-package com.android.academy.fundamentals.data.database
+package com.bogdanovsky.android.kino.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.android.academy.fundamentals.domain.Movie
+import com.bogdanovsky.android.kino.domain.Movie
 
 @Entity
-data class DatabaseMovie (
+data class DatabaseMovie(
     @PrimaryKey
     val id: String,
     val rank: String,
@@ -15,8 +15,22 @@ data class DatabaseMovie (
     val image: String,
     val crew: String,
     val imDBRating: String,
-    val imDBRatingCount: String)
+    val imDBRatingCount: String,
+)
 
+fun DatabaseMovie.toMovie(): Movie {
+    return Movie(
+        id = this.id,
+        rank = this.rank,
+        title = this.title,
+        fullTitle = this.fullTitle,
+        year = this.year,
+        image = this.image,
+        crew = this.crew,
+        imDBRating = this.imDBRating,
+        imDBRatingCount = this.imDBRatingCount
+    )
+}
 
 fun List<DatabaseMovie>.toMovieList(): List<Movie> {
     return map {

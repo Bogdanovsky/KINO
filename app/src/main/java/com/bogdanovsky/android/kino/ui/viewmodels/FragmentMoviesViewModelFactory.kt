@@ -1,4 +1,4 @@
-package com.android.academy.fundamentals.ui.viewmodels
+package com.bogdanovsky.android.kino.ui.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

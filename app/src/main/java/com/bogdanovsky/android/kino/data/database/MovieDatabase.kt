@@ -1,4 +1,4 @@
-package com.android.academy.fundamentals.data.database
+package com.bogdanovsky.android.kino.data.database
 
 import android.content.Context
 import androidx.room.Database
@@ -15,7 +15,7 @@ private lateinit var INSTANCE: MovieDatabase
 fun getDatabase(context: Context) : MovieDatabase {
     synchronized(MovieDatabase::class.java) {
         if (!::INSTANCE.isInitialized) {
-            return Room.databaseBuilder(
+            INSTANCE = Room.databaseBuilder(
                 context.applicationContext,
                 MovieDatabase::class.java,
                 "movies"
